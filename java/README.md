@@ -129,12 +129,12 @@ Examples:
 ## Map Editor
 
 The Map Editor is the main interface for creating and manipulating maps.
-There's a separate [manual](map-editor.md) that explains the features in
+There's a separate [manual](../docs/map-editor.md) that explains the features in
 some detail.
 
 ## To-Do
 
-Have a look at the [To-Do list](TODO.md).
+Have a look at the [To-Do list](../docs/TODO.md).
 
 ## Hacking
 
