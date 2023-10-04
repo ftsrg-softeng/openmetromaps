@@ -5,7 +5,7 @@ This is the main repository of the
 Data projects for cities/regions are stored within the
 [OpenMetroMapsData](https://github.com/OpenMetroMapsData) organization to keep
 the namespaces for data and code projects separated. Also see the
-[list of data projects](data-projects.md).
+[list of data projects](docs/data-projects.md).
 
 **Table of Contents**
 * [File Format](#file-format)
@@ -29,7 +29,7 @@ format are still under construction.
 See an [example file](example-data/example.xml)
 or the [Berlin testing file](java/test-data/src/main/resources/berlin.xml)
 to get an idea of how it's going to look.
-See the [specification draft](spec-map-format.md).
+See the [specification draft](docs/spec-map-format.md).
 
 ## Desktop Tools
 
@@ -111,13 +111,13 @@ connecting train.
 See an [example file](example-data/example-stations.xml)
 or the [Berlin testing file](java/test-data/src/main/resources/berlin-stations.xml)
 to get an idea of how this file works.
-Also see the [specification draft](spec-station-format.md) and a longer
-discussion on the [requirements of that format](station-data.md).
+Also see the [specification draft](docs/spec-station-format.md) and a longer
+discussion on the [requirements of that format](docs/station-data.md).
 
 ## Research
 
 We're also gathering material about transit maps in general on the
-[Research](research/research.md)
+[Research](docs/research.md)
 page.
 
 ## Other Ideas
@@ -139,7 +139,7 @@ page.
   [implementation](https://github.com/dirkschumacher/TransitmapSolver.jl)
   available which could possibly be built upon (although the license changed
   from MIT to GPL, which makes it impossible to integrate easily).
-  We collect a [list of papers](research/optimization-algorithms.md)
+  We collect a [list of papers](docs/optimization-algorithms.md)
   about possible algorithms.
 
 ### Nick-name map for Berlin
