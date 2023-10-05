@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>hu.bme.mit.ftsrg</groupId>
+        <artifactId>openmetromaps</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>openmetromaps-raw-station-model-xml-desktop</artifactId>
+    <name>openmetromaps-raw-station-model-xml-desktop</name>
+    <description>OpenMetroMaps raw station model XML (desktop)</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>hu.bme.mit.ftsrg</groupId>
+            <artifactId>openmetromaps-raw-station-model-xml</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>hu.bme.mit.ftsrg</groupId>
+            <artifactId>openmetromaps-xml-dom-abstraction-desktop</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+</project>

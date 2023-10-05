@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>hu.bme.mit.ftsrg</groupId>
+        <artifactId>openmetromaps</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>openmetromaps-maps-model-util</artifactId>
+    <name>openmetromaps-maps-model-util</name>
+    <description>OpenMetroMaps map model utilities</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>hu.bme.mit.ftsrg</groupId>
+            <artifactId>openmetromaps-maps-model</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>hu.bme.mit.ftsrg</groupId>
+            <artifactId>openmetromaps-lightgeom</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>de.topobyte</groupId>
+            <artifactId>adt-geo</artifactId>
+            <version>0.0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>de.topobyte</groupId>
+            <artifactId>jsi-rectangle-intersection-tester</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>de.topobyte</groupId>
+            <artifactId>lightweight-geometry</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>de.topobyte</groupId>
+            <artifactId>lightweight-geometry-convex-hull</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>de.topobyte</groupId>
+            <artifactId>geomath</artifactId>
+            <version>0.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>de.topobyte</groupId>
+            <artifactId>simple-formatting</artifactId>
+            <version>0.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.slimjars.trove4j</groupId>
+            <artifactId>trove4j-int-hash-set</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+    </dependencies>
+</project>
