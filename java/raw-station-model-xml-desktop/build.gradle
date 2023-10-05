@@ -1,4 +1,0 @@
-dependencies {
-    api project(':openmetromaps-raw-station-model-xml')
-    api project(':openmetromaps-xml-dom-abstraction-desktop')
-}

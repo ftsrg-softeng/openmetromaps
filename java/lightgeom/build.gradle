@@ -1,3 +1,0 @@
-dependencies {
-    api 'de.topobyte:lightweight-geometry:1.0.0'
-}

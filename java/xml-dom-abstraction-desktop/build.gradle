@@ -1,3 +1,0 @@
-dependencies {
-    api project(':openmetromaps-xml-dom-abstraction')
-}

@@ -1,4 +1,0 @@
-dependencies {
-    api project(':openmetromaps-maps-model-xml-desktop')
-    api project(':openmetromaps-misc-util')
-}
