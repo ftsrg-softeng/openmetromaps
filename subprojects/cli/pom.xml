@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>
+        <artifactId>openmetromaps</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>openmetromaps-cli</artifactId>
+    <name>openmetromaps-cli</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>
+            <artifactId>openmetromaps-import-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>
+            <artifactId>openmetromaps-osm</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>
+            <artifactId>openmetromaps-osm-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>
+            <artifactId>openmetromaps-osm-model-inspector</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>
+            <artifactId>openmetromaps-osm-import</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>
+            <artifactId>openmetromaps-maps-editor</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>
+            <artifactId>openmetromaps-maps-viewer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>
+            <artifactId>openmetromaps-maps-morpher</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>
+            <artifactId>openmetromaps-maps-batik</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>
+            <artifactId>openmetromaps-maps-model-xml-converter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>
+            <artifactId>openmetromaps-new-format</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>
+            <artifactId>openmetromaps-gtfs-import</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>
+            <artifactId>openmetromaps-gtfs-model-converter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>
+            <artifactId>openmetromaps-graphml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>
+            <artifactId>openmetromaps-markdown-view</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>
+            <artifactId>openmetromaps-ui-selector</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.topobyte</groupId>
+            <artifactId>commons-cli-helper</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.topobyte</groupId>
+            <artifactId>melon-enums</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+</project>
