@@ -1,16 +1,23 @@
 # OpenMetroMaps
 
-This is the main repository of the
-[OpenMetroMaps](https://www.openmetromaps.org) project.
-Data projects for cities/regions are stored within the
-[OpenMetroMapsData](https://github.com/OpenMetroMapsData) organization to keep
-the namespaces for data and code projects separated. Also see the
-[list of data projects](docs/data-projects.md).
+This repository is a fork of the original
+[OpenMetroMaps](https://www.openmetromaps.org) project used for educational purposes. The project was intentionally simplified by removing all web related subprojects.
 
 **Table of Contents**
+* [Requirements](#requirements)
+* [Command line interface (CLI)](#command-line-interface-cli)
+  * [Building the CLI module](#building-the-cli-module)
+  * [CLI usage and tasks](#cli-usage-and-tasks)
+  * [The osm-import task](#the-osm-import-task)
+  * [The util task](#the-util-task)
+  * [The export task](#the-export-task)
 * [File Format](#file-format)
 * [Desktop Tools](#desktop-tools)
-* [Web Viewer](#web-viewer)
+  * [Map Editor](#map-editor)
+  * [To-Do](#to-do)
+* [Hacking](#hacking)
+  * [Writing an optimization
+    algorithm](#writing-an-optimization-algorithm)
 * [Data Sources](#data-sources)
     * [OpenStreetMap](#openstreetmap)
     * [GTFS](#gtfs)
@@ -20,6 +27,113 @@ the namespaces for data and code projects separated. Also see the
 * [Other Ideas](#other-ideas)
     * [Nick-name map for Berlin](#nick-name-map-for-berlin)
 
+## Requirements
+
+In order to run the software from the development tree you need a Java
+Development Kit (JDK), Version 17 or later. The project uses Maven as a
+build tool, but you should use the included Maven Wrapper for building
+the project.
+
+On Debian-based systems such as Ubuntu or Mint, you can install the JDK
+like this:
+
+    sudo apt-get install openjdk-17-jdk
+
+## Command line interface (CLI)
+
+### Building the CLI module
+
+Run the Maven `package` task to build the CLI:
+
+    ./mvnw package
+
+### CLI usage and tasks
+
+This project has a main executable that can be executed like this:
+
+    ./scripts/openmetromaps-cli <task>
+
+Alternatively, add the `scripts` directory to your `PATH` environment
+variable in order to run `openmetromaps-cli` without specifying its location
+each time. The following examples assume you have done that:
+
+    export PATH=$PATH:$(readlink -f scripts)
+
+Then invoke the main executable like this:
+
+    openmetromaps-cli <task>
+
+Where `<task>` can be any of the following:
+
+    ui-selector
+    osm-filter
+    osm-extract
+    osm-query
+    osm-import
+    osm-inspect
+    map-editor
+    map-viewer
+    map-morpher
+    simple-map-viewer
+    gtfs-import
+    graphml-import
+    create-markdown-view
+    util
+    export
+
+Each task accepts its own set of command line parameters. To run the Map Viewer
+you would type:
+
+    openmetromaps-cli map-viewer --input test-data/src/main/resources/berlin.xml
+
+To run the Map Editor, type:
+
+    openmetromaps-cli map-editor --input test-data/src/main/resources/berlin.xml
+
+### The osm-import task
+
+The `osm-import` task imports data from OpenStreetMap and offers more sub-tasks:
+
+    openmetromaps-cli osm-import <sub-task>
+
+where `<sub-task>` may be one of the following:
+
+    file
+    overpass
+
+### The util task
+
+The `util` task works on map model files and offers more sub-tasks:
+
+    openmetromaps-cli util <sub-task>
+
+where `<sub-task>` may be one of the following:
+
+    info
+    list-change-stations
+    list-lines-with-change-stations
+    purge-stations
+
+### The export task
+
+The `export` task works on map model files and offers more sub-tasks:
+
+    openmetromaps-cli export <sub-task>
+
+where `<sub-task>` may be one of the following:
+
+    svg
+    png
+
+Examples:
+
+    openmetromaps-cli export png --input test-data/src/main/resources/berlin.xml
+                                 --output berlin.png --zoom 2
+
+    openmetromaps-cli export svg --input test-data/src/main/resources/berlin.xml
+                                 --output berlin.svg --zoom 3
+
+
 ## File Format
 
 A major goal of this project is to develop a file format for storing schematic
@@ -27,7 +141,7 @@ maps for public transport networks.
 There's no formal specification of the file format yet and features of the
 format are still under construction.
 See an [example file](example-data/example.xml)
-or the [Berlin testing file](java/test-data/src/main/resources/berlin.xml)
+or the [Berlin testing file](subprojects/test-data/src/main/resources/berlin.omm)
 to get an idea of how it's going to look.
 See the [specification draft](docs/spec-map-format.md).
 
@@ -40,22 +154,47 @@ DockingFrames for dockable dialogs.
 One core component is the Map Editor that allows you to create new maps based on
 OpenStreetMap data or from scratch and lets you manipulate existing maps.
 
-If you want to run the editor or start hacking on the desktop tools, please have
-a look at the relevant
-[README file](java/README.md).
+### Map Editor
 
-## Web Viewer
+The Map Editor is the main interface for creating and manipulating maps.
+There's a separate [manual](docs/map-editor.md) that explains the features in
+some detail.
 
-We're also building a Javascript-based Web Viewer for the file format to
-allow for easy presentation of results in a browser without the need to install
-any desktop software. Although it would also be nice to have a native Javascript
-implementation of a web viewer, we're eager to maximize code reuse and try to
-use the main Java source via transpilation to Javascript. In order to do that
-we experimented with both GWT and JSweet based approaches. Currently the
-[GWT](gwt) solution looks more promising and is close-to-usable.
-Have a look at <https://demo.openmetromaps.org/> to see it in action.
-The [JSweet](jsweet) solution doesn't work quite yet, but the technology
-certainly has potential.
+### To-Do
+
+Have a look at the [To-Do list](docs/TODO.md).
+
+## Hacking
+
+To start hacking on the project, you should use an IDE. We're using IntelliJ here.
+
+Once you've set up your working environment, you can start running the editor
+from within the IDE. Navigate to the class `TestMapEditor` and run this class
+as a Java application.
+
+### Writing an optimization algorithm
+
+The Map Editor provides an infrastructure for implementing algorithms for
+optimizing maps. When you run the editor, you can access the available
+optimization algorithms via the menu (Edit → Algorithms). Currently there's only
+two algorithms available:
+
+* Dummy Optimization: This is a placeholder algorithm that does nothing and only
+  exists in order to show how to add an algorithm to the menu. Have a look at
+  class `DummyOptimizationAction`.
+* StraightenAxisParallelLines: This is a very basic optimization algorithm that
+  strives to detect subway lines with almost axis-parallel sections. Sections
+  that are classified as quasi axis-parallel will be modified so that they are
+  really axis-parallel afterwards. Have a look at `StraightenAxisParallelLinesAction`
+  to see how the menu action can be set up and at
+  `StraightenAxisParallelLinesOptimization` to see the actual optimization code.
+
+To write your own optimization algorithm, we recommend to copy and rename
+the classes `StraightenAxisParallelLinesAction` and
+`StraightenAxisParallelLinesOptimization` and start modifying the existing code.
+
+See [this list of papers](docs/research/research.md#optimization-algorithms)
+for possible implementations that have been discussed in literature.
 
 ## Data Sources
 
@@ -64,7 +203,7 @@ We currently support data imports from the following sources:
 * [General Transit Feed Specification](http://gtfs.org) (GTFS)
 
 Both types of import can be done using the [Command Line
-Interface](java/README.md#command-line-interface-cli).
+Interface](#command-line-interface-cli).
 See the commands `osm-import` for importing OSM data and `gtfs-import` for
 importing GTFS data.
 
@@ -109,7 +248,7 @@ networks, i.e. optimize on which car to board a train to reach something most
 quickly on the destination station such as a specific exit or a stairway to your
 connecting train.
 See an [example file](example-data/example-stations.xml)
-or the [Berlin testing file](java/test-data/src/main/resources/berlin-stations.xml)
+or the [Berlin testing file](subprojects/test-data/src/main/resources/berlin-stations.xml)
 to get an idea of how this file works.
 Also see the [specification draft](docs/spec-station-format.md) and a longer
 discussion on the [requirements of that format](docs/station-data.md).
@@ -134,7 +273,7 @@ page.
   [Transportr](https://github.com/grote/Transportr).
 * Implement different optimization algorithms to transform geographic
   maps into schematic maps automatically. Some hints on how to get started
-  with that are [already available](java#writing-an-optimization-algorithm).
+  with that are [already available](#writing-an-optimization-algorithm).
   Also, there is an
   [implementation](https://github.com/dirkschumacher/TransitmapSolver.jl)
   available which could possibly be built upon (although the license changed
