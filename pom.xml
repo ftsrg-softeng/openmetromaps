@@ -20,9 +20,9 @@
 
     <properties>
         <java.version>17</java.version>
-
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <modules>
@@ -35,12 +35,10 @@
         <module>subprojects/import-config</module>
         <module>subprojects/lightgeom</module>
         <module>subprojects/line-network-util</module>
-        <module>subprojects/maps-android</module>
         <module>subprojects/maps-awt</module>
         <module>subprojects/maps-batik</module>
         <module>subprojects/maps-core</module>
         <module>subprojects/maps-editor</module>
-        <module>subprojects/maps-gwt</module>
         <module>subprojects/maps-model</module>
         <module>subprojects/maps-model-util</module>
         <module>subprojects/maps-model-xml</module>
@@ -70,7 +68,6 @@
         <module>subprojects/ui-selector</module>
         <module>subprojects/xml-dom-abstraction</module>
         <module>subprojects/xml-dom-abstraction-desktop</module>
-        <module>subprojects/xml-dom-abstraction-gwt</module>
     </modules>
 
     <repositories>

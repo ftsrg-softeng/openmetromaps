@@ -17,16 +17,24 @@
 
 package org.openmetromaps.maps.editor.config;
 
+import java.net.URISyntaxException;
 import java.nio.file.Path;
-
-import de.topobyte.system.utils.SystemPaths;
+import java.util.Objects;
 
 public class TestPaths
 {
 
-	static Path PATH_PERMANENT = SystemPaths.CWD.getParent()
-			.resolve("res/config.xml");
-	static Path PATH_VOLATILE = SystemPaths.CWD.getParent()
-			.resolve("res/volatile-config.xml");
+	static Path PATH_PERMANENT;
+
+	static Path PATH_VOLATILE;
+
+	static {
+		try {
+			PATH_PERMANENT = Path.of(Objects.requireNonNull(TestPaths.class.getClassLoader().getResource("config.xml")).toURI());
+			PATH_VOLATILE = Path.of(Objects.requireNonNull(TestPaths.class.getClassLoader().getResource("volatile-config.xml")).toURI());
+		} catch (URISyntaxException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
 }
