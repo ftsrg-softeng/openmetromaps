@@ -84,6 +84,9 @@ public class RunGtfsImport
 		prefixes.add("U-Bhf ");
 
 		List<String> suffixes = new ArrayList<>();
+		suffixes.add(" M");
+		suffixes.add(" H");
+		suffixes.add(" M+H");
 
 		NameChanger nameChanger = new NameChanger(prefixes, suffixes);
 

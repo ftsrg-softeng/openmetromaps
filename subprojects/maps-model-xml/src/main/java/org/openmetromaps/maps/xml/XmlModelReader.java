@@ -53,7 +53,7 @@ public class XmlModelReader
 	private List<XmlLine> xmlLines = new ArrayList<>();
 	private List<XmlView> xmlViews = new ArrayList<>();
 
-	private Map<String, XmlStation> nameToStation = new HashMap<>();
+	private Map<Integer, XmlStation> idToStation = new HashMap<>();
 
 	private XmlModelReader()
 	{
@@ -90,19 +90,20 @@ public class XmlModelReader
 		for (int i = 0; i < stationList.getLength(); i++) {
 			IElement eStation = stationList.element(i);
 
+			int stationId = eStation.hasAttribute("id") ? Integer.parseInt(eStation.getAttribute("id")) : xmlStations.size();
 			String stationName = eStation.getAttribute("name");
 			String valLon = eStation.getAttribute("lon");
 			String valLat = eStation.getAttribute("lat");
 			double lon = Double.parseDouble(valLon);
 			double lat = Double.parseDouble(valLat);
 
-			XmlStation station = new XmlStation(stationName,
+			XmlStation station = new XmlStation(stationId, stationName,
 					new Coordinate(lon, lat));
 			xmlStations.add(station);
 		}
 
 		for (XmlStation station : xmlStations) {
-			nameToStation.put(station.getName(), station);
+			idToStation.put(station.getId(), station);
 		}
 	}
 
@@ -115,6 +116,7 @@ public class XmlModelReader
 		for (int i = 0; i < lineList.getLength(); i++) {
 			IElement eLine = lineList.element(i);
 
+			int lineId = eLine.hasAttribute("id") ? Integer.parseInt(eLine.getAttribute("id")) : xmlLines.size();
 			String lineName = eLine.getAttribute("name");
 			String color = eLine.getAttribute("color");
 			String circular = eLine.getAttribute("circular");
@@ -125,13 +127,20 @@ public class XmlModelReader
 
 			INodeList stopList = eLine.getElementsByTagName("stop");
 			for (int k = 0; k < stopList.getLength(); k++) {
-				IElement station = stopList.element(k);
-				String stationName = station.getAttribute("station");
-				XmlStation xmlStation = nameToStation.get(stationName);
-				stops.add(xmlStation);
+				IElement eStop = stopList.element(k);
+				if (eStop.hasAttribute("id")) {
+					int stopId = Integer.parseInt(eStop.getAttribute("id"));
+					XmlStation xmlStation = idToStation.get(stopId);
+					stops.add(xmlStation);
+				}
+				else {
+					String stopName = eStop.getAttribute("station");
+					XmlStation xmlStation = xmlStations.stream().filter(s -> s.getName().equals(stopName)).findFirst().get();
+					stops.add(xmlStation);
+				}
 			}
 
-			xmlLines.add(new XmlLine(lineName, color, isCircular, stops));
+			xmlLines.add(new XmlLine(lineId, lineName, color, isCircular, stops));
 		}
 	}
 

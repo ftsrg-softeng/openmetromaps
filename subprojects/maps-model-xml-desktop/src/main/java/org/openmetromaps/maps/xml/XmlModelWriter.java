@@ -84,6 +84,7 @@ public class XmlModelWriter
 
 			Coordinate location = station.getLocation();
 
+			eStation.setAttribute("id", Integer.toString(station.getId()));
 			eStation.setAttribute("name", station.getName());
 			eStation.setAttribute("lon", df.format(location.getLongitude()));
 			eStation.setAttribute("lat", df.format(location.getLatitude()));
@@ -93,6 +94,7 @@ public class XmlModelWriter
 			Element eLine = doc.createElement("line");
 			eLines.appendChild(eLine);
 
+			eLine.setAttribute("id", Integer.toString(line.getId()));
 			eLine.setAttribute("name", line.getName());
 			eLine.setAttribute("color", line.getColor());
 			eLine.setAttribute("circular", Boolean.toString(line.isCircular()));
@@ -101,6 +103,7 @@ public class XmlModelWriter
 				Element eStop = doc.createElement("stop");
 				eLine.appendChild(eStop);
 
+				eStop.setAttribute("id", Integer.toString(stop.getStation().getId()));
 				eStop.setAttribute("station", stop.getStation().getName());
 			}
 		}

@@ -22,15 +22,21 @@ import java.util.List;
 public class DraftLine
 {
 
+	private String id;
 	private String source;
 	private List<DraftStation> stations;
 	private String color;
 
-	public DraftLine(String source, List<DraftStation> stations, String color)
+	public DraftLine(String id, String source, List<DraftStation> stations, String color)
 	{
+		this.id = id;
 		this.source = source;
 		this.stations = stations;
 		this.color = color;
+	}
+
+	public String getId() {
+		return id;
 	}
 
 	public String getSource()

@@ -326,7 +326,8 @@ public class GtfsImporter
 					String fixed = nameChanger.applyNameFixes(name);
 					double lat = Double.parseDouble(stop.getLat());
 					double lon = Double.parseDouble(stop.getLon());
-					station = new DraftStation(fixed, id, lon, lat);
+
+					station = new DraftStation(stop.getId(), fixed, id, lon, lat);
 					idToStation.put(id, station);
 				}
 				stations.add(station);
@@ -339,9 +340,8 @@ public class GtfsImporter
 					"route '%s', number of stops: %d, color: '%s'", routeName,
 					stopIds.size(), color));
 
-			lines.add(new DraftLine(routeName, stations, color));
+			lines.add(new DraftLine(route.getId(), routeName, stations, color));
 		}
 		System.out.println("Total number of stations: " + allStopIds.size());
 	}
-
 }

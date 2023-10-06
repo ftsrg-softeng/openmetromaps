@@ -22,18 +22,28 @@ import java.util.List;
 public class XmlLine
 {
 
+	private int id;
 	private String name;
 	private String color;
 	private boolean circular;
 	private List<XmlStation> stops;
 
-	public XmlLine(String name, String color, boolean circular,
+	public XmlLine(int id, String name, String color, boolean circular,
 			List<XmlStation> stops)
 	{
+		this.id = id;
 		this.name = name;
 		this.color = color;
 		this.circular = circular;
 		this.stops = stops;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName()

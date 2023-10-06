@@ -57,13 +57,13 @@ public class XmlModelConverter
 		List<XmlLine> xmlLines = xmlModel.getLines();
 
 		Map<XmlLine, Line> draftToLine = new HashMap<>();
-		Map<String, Station> nameToStation = new HashMap<>();
+		Map<Integer, Station> idToStation = new HashMap<>();
 
 		for (XmlStation xmlStation : xmlStations) {
-			Station station = new Station(0, xmlStation.getName(),
+			Station station = new Station(xmlStation.getId(), xmlStation.getName(),
 					xmlStation.getLocation(), new ArrayList<Stop>());
 			stationsList.add(station);
-			nameToStation.put(station.getName(), station);
+			idToStation.put(station.getId(), station);
 		}
 
 		int id = 0;
@@ -82,9 +82,9 @@ public class XmlModelConverter
 			line.setStops(stops);
 
 			for (XmlStation xmlStop : xmlLine.getStops()) {
-				String stopName = xmlStop.getName();
+				int stopId = xmlStop.getId();
 
-				Station station = nameToStation.get(stopName);
+				Station station = idToStation.get(stopId);
 
 				Stop stop = new Stop(station, line);
 				stops.add(stop);

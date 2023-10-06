@@ -20,17 +20,23 @@ package org.openmetromaps.gtfs;
 public class DraftStation
 {
 
+	private String id;
 	private String name;
 	private String source;
 	private double lon;
 	private double lat;
 
-	public DraftStation(String name, String source, double lon, double lat)
+	public DraftStation(String id, String name, String source, double lon, double lat)
 	{
+		this.id = id;
 		this.name = name;
 		this.source = source;
 		this.lon = lon;
 		this.lat = lat;
+	}
+
+	public String getId() {
+		return id;
 	}
 
 	public String getName()

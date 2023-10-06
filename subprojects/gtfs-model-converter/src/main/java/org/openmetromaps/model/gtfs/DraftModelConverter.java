@@ -17,10 +17,7 @@
 
 package org.openmetromaps.model.gtfs;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.openmetromaps.gtfs.DraftLine;
 import org.openmetromaps.gtfs.DraftModel;
@@ -50,7 +47,7 @@ public class DraftModelConverter
 		List<DraftLine> draftLines = draftModel.getLines();
 
 		Map<DraftLine, Line> draftToLine = new HashMap<>();
-		Map<String, Station> nameToStation = new HashMap<>();
+		Map<String, Station> idToStation = new HashMap<>();
 
 		int id = 0;
 		for (DraftLine draftLine : draftLines) {
@@ -73,16 +70,18 @@ public class DraftModelConverter
 			line.setStops(stops);
 
 			for (DraftStation draftStation : draftLine.getStations()) {
-				String stopName = draftStation.getName();
+				String stopId = draftStation.getId();
 
-				Station station = nameToStation.get(stopName);
+				Station station = idToStation.get(stopId);
 				if (station == null) {
 					Coordinate location = new Coordinate(draftStation.getLon(),
 							draftStation.getLat());
-					station = new Station(0, stopName, location,
+
+					station = new Station(idToStation.size(), draftStation.getName(), location,
 							new ArrayList<Stop>());
 					stationsList.add(station);
-					nameToStation.put(stopName, station);
+
+					idToStation.put(stopId, station);
 				}
 
 				Stop stop = new Stop(station, line);
@@ -112,6 +111,16 @@ public class DraftModelConverter
 		}
 
 		return new ModelData(linesList, stationsList);
+	}
+
+	private boolean closeEnough(Coordinate loc1, Coordinate loc2) {
+		double R = 6378.137; // Radius of earth in KM
+		double dLat = loc2.getLatitude() * Math.PI / 180 - loc1.getLatitude() * Math.PI / 180;
+		double dLon = loc2.getLongitude() * Math.PI / 180 - loc1.getLongitude() * Math.PI / 180;
+		double a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(loc1.getLatitude() * Math.PI / 180) * Math.cos(loc2.getLatitude() * Math.PI / 180) * Math.sin(dLon/2) * Math.sin(dLon/2);
+		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+		double d = R * c * 1000; // meters
+		return d < 200;
 	}
 
 }

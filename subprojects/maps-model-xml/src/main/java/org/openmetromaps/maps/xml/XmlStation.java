@@ -22,13 +22,23 @@ import org.openmetromaps.maps.model.Coordinate;
 public class XmlStation
 {
 
+	private int id;
 	private String name;
 	private Coordinate location;
 
-	public XmlStation(String name, Coordinate location)
+	public XmlStation(int id, String name, Coordinate location)
 	{
+		this.id = id;
 		this.name = name;
 		this.location = location;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName()
