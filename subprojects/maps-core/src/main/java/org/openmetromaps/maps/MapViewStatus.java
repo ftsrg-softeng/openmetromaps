@@ -21,12 +21,15 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.openmetromaps.maps.graph.NetworkLine;
 import org.openmetromaps.maps.graph.Node;
 
 public class MapViewStatus
 {
 
 	private Set<Node> selectedNodes = new HashSet<>();
+	private Set<NetworkLine> hiddenLines = new HashSet<>();
+	private Set<NetworkLine> selectedLines = new HashSet<>();
 
 	public boolean isNodeSelected(Node node)
 	{
@@ -58,4 +61,51 @@ public class MapViewStatus
 		return Collections.unmodifiableSet(selectedNodes);
 	}
 
+	public boolean isLineHidden(NetworkLine line) {
+		return hiddenLines.contains(line);
+	}
+
+	public void hideLine(NetworkLine line) {
+		hiddenLines.add(line);
+	}
+
+	public void unhideLine(NetworkLine line) {
+		hiddenLines.remove(line);
+	}
+
+	public void hideNoLines() {
+		hiddenLines.clear();
+	}
+
+	public int getNumHiddenLines() {
+		return hiddenLines.size();
+	}
+
+	public Set<NetworkLine> getHiddenLines() {
+		return Collections.unmodifiableSet(hiddenLines);
+	}
+
+	public boolean isLineSelected(NetworkLine line) {
+		return selectedLines.contains(line);
+	}
+
+	public void selectLine(NetworkLine line) {
+		selectedLines.add(line);
+	}
+
+	public void unselectLine(NetworkLine line) {
+		selectedLines.remove(line);
+	}
+
+	public void selectNoLines() {
+		selectedLines.clear();
+	}
+
+	public int getNumSelectedLines() {
+		return selectedLines.size();
+	}
+
+	public Set<NetworkLine> getSelectedLines() {
+		return Collections.unmodifiableSet(selectedLines);
+	}
 }

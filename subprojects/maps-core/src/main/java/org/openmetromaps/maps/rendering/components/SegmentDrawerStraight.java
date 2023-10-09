@@ -45,7 +45,7 @@ public class SegmentDrawerStraight extends AbstractSegmentDrawer
 	}
 
 	@Override
-	public void drawSegment(Painter g, List<NetworkLine> lines, Edge edge)
+	public void drawSegment(Painter g, List<NetworkLine> lines, Edge edge, List<Boolean> selected)
 	{
 		Point locationA = edge.n1.location;
 		Point locationB = edge.n2.location;
@@ -57,16 +57,16 @@ public class SegmentDrawerStraight extends AbstractSegmentDrawer
 
 		if (lines.size() == 1) {
 			NetworkLine line = lines.get(0);
-			drawSingleLineEdgeStraight(g, line, edge, ax, ay, bx, by);
+			drawSingleLineEdgeStraight(g, line, edge, selected.get(0), ax, ay, bx, by);
 		} else {
-			drawMultiLineEdgeStraight(g, lines, edge, ax, ay, bx, by);
+			drawMultiLineEdgeStraight(g, lines, edge, selected, ax, ay, bx, by);
 		}
 	}
 
 	private void drawSingleLineEdgeStraight(Painter g, NetworkLine line,
-			Edge edge, double ax, double ay, double bx, double by)
+			Edge edge, boolean selected, double ax, double ay, double bx, double by)
 	{
-		IPaintInfo paint = lineToPaintForLines[line.line.getId()];
+		IPaintInfo paint = selected ? lineToPaintForSelectedLines : lineToPaintForLines[line.line.getId()];
 
 		g.setPaintInfo(paint);
 
@@ -76,8 +76,8 @@ public class SegmentDrawerStraight extends AbstractSegmentDrawer
 	}
 
 	private void drawMultiLineEdgeStraight(Painter g,
-			Collection<NetworkLine> lines, Edge edge, double ax, double ay,
-			double bx, double by)
+			Collection<NetworkLine> lines, Edge edge, List<Boolean> selected,
+		    double ax, double ay, double bx, double by)
 	{
 		SegmentPaintInfo spi = new SegmentPaintInfo(ax, ay, bx, by,
 				lineWidth * spreadFactor, lines.size());
@@ -91,7 +91,7 @@ public class SegmentDrawerStraight extends AbstractSegmentDrawer
 			double lby = by + spi.sy - spi.ndx * i * spi.shift;
 
 			NetworkLine line = iter.next();
-			IPaintInfo paint = lineToPaintForLines[line.line.getId()];
+			IPaintInfo paint = selected.get(i) ? lineToPaintForSelectedLines : lineToPaintForLines[line.line.getId()];
 			g.setPaintInfo(paint);
 
 			g.setRef(edge, line);

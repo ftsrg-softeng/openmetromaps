@@ -76,7 +76,7 @@ public class SegmentDrawerCurved extends AbstractSegmentDrawer
 	}
 
 	@Override
-	public void drawSegment(Painter g, List<NetworkLine> lines, Edge edge)
+	public void drawSegment(Painter g, List<NetworkLine> lines, Edge edge, List<Boolean> selected)
 	{
 		Point locationA = edge.n1.location;
 		Point locationB = edge.n2.location;
@@ -88,9 +88,9 @@ public class SegmentDrawerCurved extends AbstractSegmentDrawer
 
 		if (lines.size() == 1) {
 			NetworkLine line = lines.get(0);
-			drawSingleLineEdgeCurved(g, line, edge, ax, ay, bx, by);
+			drawSingleLineEdgeCurved(g, line, edge, selected.get(0), ax, ay, bx, by);
 		} else {
-			drawMultiLineEdgeCurved(g, lines, edge, ax, ay, bx, by);
+			drawMultiLineEdgeCurved(g, lines, edge, selected, ax, ay, bx, by);
 		}
 	}
 
@@ -100,9 +100,9 @@ public class SegmentDrawerCurved extends AbstractSegmentDrawer
 	private Vector2 v2 = new Vector2(0, 0);
 
 	private void drawSingleLineEdgeCurved(Painter g, NetworkLine line,
-			Edge edge, double ax, double ay, double bx, double by)
+			Edge edge, boolean selected, double ax, double ay, double bx, double by)
 	{
-		IPaintInfo paint = lineToPaintForLines[line.line.getId()];
+		IPaintInfo paint = selected ? lineToPaintForSelectedLines : lineToPaintForLines[line.line.getId()];
 		g.setPaintInfo(paint);
 
 		NeighborInfo neighbors = line.getNeighbors(edge);
@@ -140,7 +140,7 @@ public class SegmentDrawerCurved extends AbstractSegmentDrawer
 	private SegmentEndPointPaintInfo spiB = new SegmentEndPointPaintInfo();
 
 	private void drawMultiLineEdgeCurved(Painter g, List<NetworkLine> lines,
-			Edge edge, double ax, double ay, double bx, double by)
+			Edge edge, List<Boolean> selected, double ax, double ay, double bx, double by)
 	{
 		Point lp = edge.prev;
 		Point ln = edge.next;
@@ -155,7 +155,7 @@ public class SegmentDrawerCurved extends AbstractSegmentDrawer
 			double lby = by + spiB.sy - spiB.ndx * i * spiB.shift;
 
 			NetworkLine line = lines.get(i);
-			IPaintInfo paint = lineToPaintForLines[line.line.getId()];
+			IPaintInfo paint = selected.get(i) ? lineToPaintForSelectedLines : lineToPaintForLines[line.line.getId()];
 			g.setPaintInfo(paint);
 
 			Vector2 d02 = null, d31 = null;

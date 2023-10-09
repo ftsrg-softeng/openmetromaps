@@ -40,6 +40,7 @@ public abstract class AbstractSegmentDrawer implements SegmentDrawer
 	protected float lineWidth;
 
 	protected IPaintInfo[] lineToPaintForLines;
+	protected IPaintInfo lineToPaintForSelectedLines;
 
 	public AbstractSegmentDrawer(PaintFactory pf, LineNetwork data,
 			Map<NetworkLine, ColorCode> colors, float scale,
@@ -59,6 +60,9 @@ public abstract class AbstractSegmentDrawer implements SegmentDrawer
 			paint.setStyle(PaintType.STROKE);
 			lineToPaintForLines[line.line.getId()] = paint;
 		}
+
+		lineToPaintForSelectedLines = pf.create(new ColorCode(0xffff0000));
+		lineToPaintForSelectedLines.setStyle(PaintType.STROKE);
 	}
 
 	@Override
@@ -72,6 +76,7 @@ public abstract class AbstractSegmentDrawer implements SegmentDrawer
 			NetworkLine line = lines.get(i);
 			IPaintInfo paint = lineToPaintForLines[line.line.getId()];
 			paint.setWidth(lineWidth);
+			lineToPaintForSelectedLines.setWidth(lineWidth * 1.2f);
 		}
 	}
 

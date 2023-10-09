@@ -20,11 +20,9 @@ package org.openmetromaps.maps;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
-import org.openmetromaps.maps.graph.Edge;
-import org.openmetromaps.maps.graph.LineNetwork;
-import org.openmetromaps.maps.graph.NetworkLine;
-import org.openmetromaps.maps.graph.Node;
+import org.openmetromaps.maps.graph.*;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.painting.core.ColorCode;
 import org.openmetromaps.maps.painting.core.Colors;
@@ -277,6 +275,19 @@ public class PlanRenderer implements ViewportListener
 
 	public void paint(Painter g)
 	{
+		LineNetwork lineNetwork = new LineNetworkCloner(this.lineNetwork).cloneLineNetwork();
+		lineNetwork.lines = lineNetwork.lines.stream()
+				.filter(nl -> !mapViewStatus.isLineHidden(this.lineNetwork.lines.stream().filter(onl -> onl.line == nl.line).findFirst().get()))
+				.toList();
+		lineNetwork.edges = lineNetwork.edges.stream()
+				.peek(e -> e.lines = e.lines.stream().filter(nl -> lineNetwork.lines.contains(nl)).toList())
+				.filter(e -> !e.lines.isEmpty())
+				.toList();
+		lineNetwork.nodes = lineNetwork.nodes.stream()
+				.peek(n -> n.edges = n.edges.stream().filter(e -> lineNetwork.edges.contains(e)).toList())
+				.filter(n -> !n.edges.isEmpty())
+				.toList();
+
 		double x1 = ViewportUtil.getRealX(viewport, 0);
 		double y1 = ViewportUtil.getRealY(viewport, 0);
 		double x2 = ViewportUtil.getRealX(viewport,
@@ -312,7 +323,12 @@ public class PlanRenderer implements ViewportListener
 			}
 
 			List<NetworkLine> lines = edge.lines;
-			segmentDrawer.drawSegment(g, lines, edge);
+			segmentDrawer.drawSegment(
+				g, lines, edge,
+				lines.stream()
+					.map(l -> mapViewStatus.isLineSelected(this.lineNetwork.lines.stream().filter(nl -> nl.line == l.line).findFirst().get()))
+					.toList()
+			);
 		}
 		segmentDrawer.finishSegments();
 		tm.stop(LOG_SEGMENTS);
@@ -327,13 +343,14 @@ public class PlanRenderer implements ViewportListener
 		Path path = g.createPath();
 		for (int i = 0; i < nNodes; i++) {
 			Node node = lineNetwork.nodes.get(i);
+
 			Point location = node.location;
 
 			if (!envelope.contains(location.x, location.y)) {
 				continue;
 			}
 
-			boolean selected = mapViewStatus.isNodeSelected(node);
+			boolean selected = mapViewStatus.isNodeSelected(this.lineNetwork.nodes.stream().filter(n -> n.station == node.station).findFirst().get());
 
 			stationDrawer.drawStation(g, node, path, selected,
 					renderStationCenters);
@@ -368,7 +385,7 @@ public class PlanRenderer implements ViewportListener
 
 		tm.start(LOG_LABELS);
 		if (isRenderLabels) {
-			renderLabels(g, envelope, nNodes, fontSize, piOutline, piText);
+			renderLabels(g, envelope, lineNetwork, nNodes, fontSize, piOutline, piText);
 		}
 		tm.stop(LOG_LABELS);
 
@@ -382,7 +399,7 @@ public class PlanRenderer implements ViewportListener
 		}
 	}
 
-	private void renderLabels(Painter g, Envelope envelope, int nNodes,
+	private void renderLabels(Painter g, Envelope envelope, LineNetwork lineNetwork, int nNodes,
 			int fontSize, IPaintInfo piOutline, IPaintInfo piText)
 	{
 		RectangleIntersectionTester tester = new RTreeIntersectionTester();

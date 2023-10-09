@@ -84,6 +84,7 @@ import org.openmetromaps.maps.editor.config.VolatileConfigReader;
 import org.openmetromaps.maps.editor.config.VolatileConfiguration;
 import org.openmetromaps.maps.editor.dockables.DockableHelper;
 import org.openmetromaps.maps.graph.LineNetwork;
+import org.openmetromaps.maps.graph.NetworkLine;
 import org.openmetromaps.maps.graph.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -133,6 +134,9 @@ public class MapEditor
 
 	private StationPanel stationPanel;
 	private DefaultSingleCDockable stationPanelDockable;
+
+	private LinesPanel linesPanel;
+	private DefaultSingleCDockable linesPanelDockable;
 
 	private ViewportPanel viewportPanel;
 	private DefaultSingleCDockable viewportPanelDockable;
@@ -609,7 +613,8 @@ public class MapEditor
 		mapDockable.setMinimizable(false);
 
 		setupStationPanel(true);
-		setupViewportPanel(true);
+		setupLinesPanel(true);
+		setupViewportPanel(false);
 
 		control.getContentArea().deploy(grid);
 	}
@@ -694,6 +699,26 @@ public class MapEditor
 		updateStationPanel();
 	}
 
+	void hideLine(NetworkLine line) {
+		mapViewStatus.hideLine(line);
+		map.repaint();
+	}
+
+	void unhideLine(NetworkLine line) {
+		mapViewStatus.unhideLine(line);
+		map.repaint();
+	}
+
+	void selectLine(NetworkLine line) {
+		mapViewStatus.selectLine(line);
+		map.repaint();
+	}
+
+	void unselectLine(NetworkLine line) {
+		mapViewStatus.unselectLine(line);
+		map.repaint();
+	}
+
 	public void updateStationPanel()
 	{
 		if (mapViewStatus.getNumSelectedNodes() == 1) {
@@ -717,6 +742,19 @@ public class MapEditor
 		DockableHelper.setDefaultOptions(stationPanelDockable);
 	}
 
+	void setupLinesPanel(boolean show)
+	{
+		linesPanel = new LinesPanel(this);
+
+		linesPanelDockable = new DefaultSingleCDockable("lines-panel",
+				"Lines Panel", linesPanel);
+
+		grid.add(10, 1, 3, 1, linesPanelDockable);
+
+		linesPanelDockable.setVisible(show);
+		DockableHelper.setDefaultOptions(linesPanelDockable);
+	}
+
 	void setupViewportPanel(boolean show)
 	{
 		viewportPanel = new ViewportPanel(this);
@@ -724,7 +762,7 @@ public class MapEditor
 		viewportPanelDockable = new DefaultSingleCDockable("viewport-panel",
 				"Viewport Panel", viewportPanel);
 
-		grid.add(10, 1, 3, 1, viewportPanelDockable);
+		grid.add(10, 2, 3, 1, viewportPanelDockable);
 
 		viewportPanelDockable.setVisible(show);
 		DockableHelper.setDefaultOptions(viewportPanelDockable);
