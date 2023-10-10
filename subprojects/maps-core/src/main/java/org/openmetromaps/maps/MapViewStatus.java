@@ -19,6 +19,7 @@ package org.openmetromaps.maps;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.openmetromaps.maps.graph.NetworkLine;
@@ -27,9 +28,9 @@ import org.openmetromaps.maps.graph.Node;
 public class MapViewStatus
 {
 
-	private Set<Node> selectedNodes = new HashSet<>();
-	private Set<NetworkLine> hiddenLines = new HashSet<>();
-	private Set<NetworkLine> selectedLines = new HashSet<>();
+	private Set<Node> selectedNodes = new LinkedHashSet<>();
+	private Set<NetworkLine> hiddenLines = new LinkedHashSet<>();
+	private Set<NetworkLine> selectedLines = new LinkedHashSet<>();
 
 	public boolean isNodeSelected(Node node)
 	{

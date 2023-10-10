@@ -108,7 +108,7 @@ public class SelectNodesInBetweenAction extends MapEditorAction
 			mapEditor.getMapViewStatus().selectNode(node);
 		}
 
-		mapEditor.updateStationPanel();
+		mapEditor.updateSelections();
 		mapEditor.getMap().repaint();
 	}
 
