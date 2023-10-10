@@ -76,7 +76,7 @@ public class SegmentDrawerCurved extends AbstractSegmentDrawer
 	}
 
 	@Override
-	public void drawSegment(Painter g, List<NetworkLine> lines, Edge edge, List<Boolean> selected)
+	public void drawSegment(Painter g, List<NetworkLine> lines, Edge edge, List<Boolean> selected, List<Boolean> highlighted)
 	{
 		Point locationA = edge.n1.location;
 		Point locationB = edge.n2.location;
@@ -88,9 +88,9 @@ public class SegmentDrawerCurved extends AbstractSegmentDrawer
 
 		if (lines.size() == 1) {
 			NetworkLine line = lines.get(0);
-			drawSingleLineEdgeCurved(g, line, edge, selected.get(0), ax, ay, bx, by);
+			drawSingleLineEdgeCurved(g, line, edge, selected.get(0), highlighted.get(0), ax, ay, bx, by);
 		} else {
-			drawMultiLineEdgeCurved(g, lines, edge, selected, ax, ay, bx, by);
+			drawMultiLineEdgeCurved(g, lines, edge, selected, highlighted, ax, ay, bx, by);
 		}
 	}
 
@@ -100,10 +100,14 @@ public class SegmentDrawerCurved extends AbstractSegmentDrawer
 	private Vector2 v2 = new Vector2(0, 0);
 
 	private void drawSingleLineEdgeCurved(Painter g, NetworkLine line,
-			Edge edge, boolean selected, double ax, double ay, double bx, double by)
+										  Edge edge, boolean selected, boolean highlighted, double ax, double ay, double bx, double by)
 	{
-		IPaintInfo paint = selected ? lineToPaintForSelectedLines : lineToPaintForLines[line.line.getId()];
-		g.setPaintInfo(paint);
+		if (selected)
+			g.setPaintInfo(lineToPaintForSelectedLines);
+		else if (highlighted)
+			g.setPaintInfo(lineToPaintForHighlightedLines);
+		else
+			g.setPaintInfo(lineToPaintForLines[line.line.getId()]);
 
 		NeighborInfo neighbors = line.getNeighbors(edge);
 
@@ -140,7 +144,7 @@ public class SegmentDrawerCurved extends AbstractSegmentDrawer
 	private SegmentEndPointPaintInfo spiB = new SegmentEndPointPaintInfo();
 
 	private void drawMultiLineEdgeCurved(Painter g, List<NetworkLine> lines,
-			Edge edge, List<Boolean> selected, double ax, double ay, double bx, double by)
+										 Edge edge, List<Boolean> selected, List<Boolean> highlighted, double ax, double ay, double bx, double by)
 	{
 		Point lp = edge.prev;
 		Point ln = edge.next;
@@ -155,8 +159,12 @@ public class SegmentDrawerCurved extends AbstractSegmentDrawer
 			double lby = by + spiB.sy - spiB.ndx * i * spiB.shift;
 
 			NetworkLine line = lines.get(i);
-			IPaintInfo paint = selected.get(i) ? lineToPaintForSelectedLines : lineToPaintForLines[line.line.getId()];
-			g.setPaintInfo(paint);
+			if (selected.get(i))
+				g.setPaintInfo(lineToPaintForSelectedLines);
+			else if (highlighted.get(i))
+				g.setPaintInfo(lineToPaintForHighlightedLines);
+			else
+				g.setPaintInfo(lineToPaintForLines[line.line.getId()]);
 
 			Vector2 d02 = null, d31 = null;
 

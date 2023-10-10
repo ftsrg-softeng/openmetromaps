@@ -30,18 +30,19 @@ public class LinesPanel extends JPanel {
         super(new GridLayout(0, 1));
         this.mapEditor = mapEditor;
 
-        this.linesToShow = new HashMap<>();
-
         setupLayout();
 
         mapEditor.addDataChangeListener(this::refresh);
     }
 
     private void setupLayout() {
-        this.linesSelected = new HashMap<>();
-        for(Line line : this.mapEditor.getModel().getData().lines) {
-            this.linesToShow.put(line, true);
-            this.linesSelected.put(line, false);
+        if (this.linesToShow == null) {
+            this.linesToShow = new HashMap<>();
+            this.linesSelected = new HashMap<>();
+            for (Line line : this.mapEditor.getModel().getData().lines) {
+                this.linesToShow.put(line, true);
+                this.linesSelected.put(line, false);
+            }
         }
 
         JPanel panel = new JPanel(new GridBagLayout());

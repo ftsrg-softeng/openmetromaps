@@ -45,7 +45,7 @@ public class SegmentDrawerStraight extends AbstractSegmentDrawer
 	}
 
 	@Override
-	public void drawSegment(Painter g, List<NetworkLine> lines, Edge edge, List<Boolean> selected)
+	public void drawSegment(Painter g, List<NetworkLine> lines, Edge edge, List<Boolean> selected, List<Boolean> highlighted)
 	{
 		Point locationA = edge.n1.location;
 		Point locationB = edge.n2.location;
@@ -57,18 +57,21 @@ public class SegmentDrawerStraight extends AbstractSegmentDrawer
 
 		if (lines.size() == 1) {
 			NetworkLine line = lines.get(0);
-			drawSingleLineEdgeStraight(g, line, edge, selected.get(0), ax, ay, bx, by);
+			drawSingleLineEdgeStraight(g, line, edge, selected.get(0), highlighted.get(0), ax, ay, bx, by);
 		} else {
-			drawMultiLineEdgeStraight(g, lines, edge, selected, ax, ay, bx, by);
+			drawMultiLineEdgeStraight(g, lines, edge, selected, highlighted, ax, ay, bx, by);
 		}
 	}
 
 	private void drawSingleLineEdgeStraight(Painter g, NetworkLine line,
-			Edge edge, boolean selected, double ax, double ay, double bx, double by)
+											Edge edge, boolean selected, boolean highlighted, double ax, double ay, double bx, double by)
 	{
-		IPaintInfo paint = selected ? lineToPaintForSelectedLines : lineToPaintForLines[line.line.getId()];
-
-		g.setPaintInfo(paint);
+		if (selected)
+			g.setPaintInfo(lineToPaintForSelectedLines);
+		else if (highlighted)
+			g.setPaintInfo(lineToPaintForHighlightedLines);
+		else
+			g.setPaintInfo(lineToPaintForLines[line.line.getId()]);
 
 		g.setRef(edge, line);
 		g.drawLine(ax, ay, bx, by);
@@ -76,8 +79,8 @@ public class SegmentDrawerStraight extends AbstractSegmentDrawer
 	}
 
 	private void drawMultiLineEdgeStraight(Painter g,
-			Collection<NetworkLine> lines, Edge edge, List<Boolean> selected,
-		    double ax, double ay, double bx, double by)
+										   Collection<NetworkLine> lines, Edge edge, List<Boolean> selected,
+										   List<Boolean> highlighted, double ax, double ay, double bx, double by)
 	{
 		SegmentPaintInfo spi = new SegmentPaintInfo(ax, ay, bx, by,
 				lineWidth * spreadFactor, lines.size());
@@ -91,8 +94,12 @@ public class SegmentDrawerStraight extends AbstractSegmentDrawer
 			double lby = by + spi.sy - spi.ndx * i * spi.shift;
 
 			NetworkLine line = iter.next();
-			IPaintInfo paint = selected.get(i) ? lineToPaintForSelectedLines : lineToPaintForLines[line.line.getId()];
-			g.setPaintInfo(paint);
+			if (selected.get(i))
+				g.setPaintInfo(lineToPaintForSelectedLines);
+			else if (highlighted.get(i))
+				g.setPaintInfo(lineToPaintForHighlightedLines);
+			else
+				g.setPaintInfo(lineToPaintForLines[line.line.getId()]);
 
 			g.setRef(edge, line);
 			g.drawLine(lax, lay, lbx, lby);

@@ -87,7 +87,7 @@ public class SelectLinesAction extends MapEditorAction
 		}
 		dialog.dispose();
 
-		mapEditor.updateStationPanel();
+		mapEditor.updateSelections();
 		mapEditor.getMap().repaint();
 	}
 

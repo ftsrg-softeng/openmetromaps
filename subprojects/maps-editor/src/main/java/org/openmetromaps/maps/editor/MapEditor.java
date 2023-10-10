@@ -31,6 +31,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -42,19 +43,9 @@ import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.openmetromaps.maps.Constants;
-import org.openmetromaps.maps.CoordinateConversionType;
-import org.openmetromaps.maps.DataChangeListener;
-import org.openmetromaps.maps.InitialViewportSetupListener;
-import org.openmetromaps.maps.MapModel;
-import org.openmetromaps.maps.MapView;
-import org.openmetromaps.maps.MapViewStatus;
-import org.openmetromaps.maps.ModelUtil;
-import org.openmetromaps.maps.PlanRenderer;
+import org.openmetromaps.maps.*;
 import org.openmetromaps.maps.PlanRenderer.SegmentMode;
 import org.openmetromaps.maps.PlanRenderer.StationMode;
-import org.openmetromaps.maps.ScrollableAdvancedPanel;
-import org.openmetromaps.maps.ViewConfig;
 import org.openmetromaps.maps.editor.actions.algorithms.DummyOptimizationAction;
 import org.openmetromaps.maps.editor.actions.algorithms.HeavyComputationAction;
 import org.openmetromaps.maps.editor.actions.algorithms.StraightenAxisParallelLinesAction;
@@ -83,9 +74,8 @@ import org.openmetromaps.maps.editor.config.PermanentConfiguration;
 import org.openmetromaps.maps.editor.config.VolatileConfigReader;
 import org.openmetromaps.maps.editor.config.VolatileConfiguration;
 import org.openmetromaps.maps.editor.dockables.DockableHelper;
-import org.openmetromaps.maps.graph.LineNetwork;
-import org.openmetromaps.maps.graph.NetworkLine;
-import org.openmetromaps.maps.graph.Node;
+import org.openmetromaps.maps.graph.*;
+import org.openmetromaps.maps.model.Stop;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
@@ -134,6 +124,12 @@ public class MapEditor
 
 	private StationPanel stationPanel;
 	private DefaultSingleCDockable stationPanelDockable;
+
+	private SelectionPanel selectionPanel;
+	private DefaultSingleCDockable selectionPanelDockable;
+
+	private NavigationPanel navigationPanel;
+	private DefaultSingleCDockable navigationPanelDockable;
 
 	private LinesPanel linesPanel;
 	private DefaultSingleCDockable linesPanelDockable;
@@ -248,6 +244,11 @@ public class MapEditor
 		map.setData(model.getData(), view.getLineNetwork(), mapViewStatus);
 		map.setViewConfig(viewConfig, Constants.DEFAULT_ZOOM);
 		selectNone();
+		hideNone();
+		selectNoLines();
+		// we need this here again
+//		hideNone();
+//		selectNoLines();
 		syncMapState();
 	}
 
@@ -612,9 +613,12 @@ public class MapEditor
 		mapDockable.setCloseable(false);
 		mapDockable.setMinimizable(false);
 
-		setupStationPanel(true);
-		setupLinesPanel(true);
-		setupViewportPanel(false);
+		int sidePanelYPos = 0;
+		setupStationPanel(true, sidePanelYPos++);
+		setupSelectionPanel(true, sidePanelYPos++);
+		setupNavigationPanel(true, sidePanelYPos++);
+		setupLinesPanel(true, sidePanelYPos++);
+		setupViewportPanel(false, sidePanelYPos++);
 
 		control.getContentArea().deploy(grid);
 	}
@@ -680,7 +684,7 @@ public class MapEditor
 	{
 		mapViewStatus.selectNoNodes();
 		mapViewStatus.selectNode(node);
-		updateStationPanel();
+		updateSelections();
 	}
 
 	void toggleSelected(Node node)
@@ -690,13 +694,13 @@ public class MapEditor
 		} else {
 			mapViewStatus.selectNode(node);
 		}
-		updateStationPanel();
+		updateSelections();
 	}
 
 	void selectNone()
 	{
 		mapViewStatus.selectNoNodes();
-		updateStationPanel();
+		updateSelections();
 	}
 
 	void hideLine(NetworkLine line) {
@@ -709,17 +713,43 @@ public class MapEditor
 		map.repaint();
 	}
 
+	// TOOD: need again
+	void hideNone() {
+		mapViewStatus.hideNoLines();
+		map.repaint();
+	}
+
 	void selectLine(NetworkLine line) {
 		mapViewStatus.selectLine(line);
+		updateSelections();
 		map.repaint();
 	}
 
 	void unselectLine(NetworkLine line) {
 		mapViewStatus.unselectLine(line);
+		updateSelections();
 		map.repaint();
 	}
 
-	public void updateStationPanel()
+	// TOOD: need again
+	void selectNoLines() {
+		mapViewStatus.selectNoLines();
+		updateSelections();
+		map.repaint();
+	}
+
+	void highlightPath(List<Stop> path, List<? extends Map.Entry<Edge, NetworkLine>> edgeLines) {
+		mapViewStatus.highlightPath(path, edgeLines);
+		map.repaint();
+	}
+
+	void removeHighlight() {
+		mapViewStatus.removeHighlight();
+		map.repaint();
+	}
+
+	// TOOD: need again
+	public void updateSelections()
 	{
 		if (mapViewStatus.getNumSelectedNodes() == 1) {
 			Node node = mapViewStatus.getSelectedNodes().iterator().next();
@@ -727,45 +757,88 @@ public class MapEditor
 		} else {
 			stationPanel.setNode(null);
 		}
+
+		selectionPanel.setNodes(mapViewStatus.getSelectedNodes());
+		navigationPanel.setSelection(mapViewStatus.getSelectedNodes(), mapViewStatus.getSelectedLines());
 	}
 
-	void setupStationPanel(boolean show)
+	void setupStationPanel(boolean show, int yPos)
 	{
 		stationPanel = new StationPanel(this);
 
 		stationPanelDockable = new DefaultSingleCDockable("station-panel",
 				"Station Panel", stationPanel);
 
-		grid.add(10, 0, 3, 1, stationPanelDockable);
+		grid.add(10, yPos, 3, 1, stationPanelDockable);
 
 		stationPanelDockable.setVisible(show);
 		DockableHelper.setDefaultOptions(stationPanelDockable);
 	}
 
-	void setupLinesPanel(boolean show)
+	void setupSelectionPanel(boolean show, int yPos)
+	{
+		selectionPanel = new SelectionPanel(this);
+
+		selectionPanelDockable = new DefaultSingleCDockable("selection-panel",
+				"Selection Panel", selectionPanel);
+
+		grid.add(10, 1, 3, 1, selectionPanelDockable);
+
+		selectionPanelDockable.setVisible(show);
+		DockableHelper.setDefaultOptions(selectionPanelDockable);
+	}
+
+	void setupNavigationPanel(boolean show, int yPos)
+	{
+		navigationPanel = new NavigationPanel(this);
+
+		navigationPanelDockable = new DefaultSingleCDockable("navigation-panel",
+				"Navigation Panel", navigationPanel);
+
+		grid.add(10, yPos, 3, 1, navigationPanelDockable);
+
+		navigationPanelDockable.setVisible(show);
+		DockableHelper.setDefaultOptions(navigationPanelDockable);
+	}
+
+	void setupLinesPanel(boolean show, int yPos)
 	{
 		linesPanel = new LinesPanel(this);
 
 		linesPanelDockable = new DefaultSingleCDockable("lines-panel",
 				"Lines Panel", linesPanel);
 
-		grid.add(10, 1, 3, 1, linesPanelDockable);
+		grid.add(10, yPos, 3, 1, linesPanelDockable);
 
 		linesPanelDockable.setVisible(show);
 		DockableHelper.setDefaultOptions(linesPanelDockable);
 	}
 
-	void setupViewportPanel(boolean show)
+	void setupViewportPanel(boolean show, int yPos)
 	{
 		viewportPanel = new ViewportPanel(this);
 
 		viewportPanelDockable = new DefaultSingleCDockable("viewport-panel",
 				"Viewport Panel", viewportPanel);
 
-		grid.add(10, 2, 3, 1, viewportPanelDockable);
+		grid.add(10, yPos, 3, 1, viewportPanelDockable);
 
 		viewportPanelDockable.setVisible(show);
 		DockableHelper.setDefaultOptions(viewportPanelDockable);
+	}
+
+	public void triggerMapChanged() {
+		model.getViews().clear();
+		init(model);
+		map.setData(model.getData(), view.getLineNetwork(), mapViewStatus);
+		selectNone();
+		hideNone();
+		selectNoLines();
+		removeHighlight();
+		syncMapState();
+		map.repaint();
+
+		triggerDataChanged();
 	}
 
 	public void showReallyExitDialog()

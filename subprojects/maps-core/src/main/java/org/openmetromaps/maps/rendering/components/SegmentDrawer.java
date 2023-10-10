@@ -30,7 +30,7 @@ public interface SegmentDrawer
 
 	public void finishSegments();
 
-	public void drawSegment(Painter g, List<NetworkLine> lines, Edge edge, List<Boolean> selected);
+	public void drawSegment(Painter g, List<NetworkLine> lines, Edge edge, List<Boolean> selected, List<Boolean> highlighted);
 
 	public void zoomChanged(float factor, float lineWidth);
 

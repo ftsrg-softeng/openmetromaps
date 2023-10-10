@@ -49,7 +49,7 @@ public class SelectAllAction extends MapEditorAction
 		for (Node node : lineNetwork.nodes) {
 			mapEditor.getMapViewStatus().selectNode(node);
 		}
-		mapEditor.updateStationPanel();
+		mapEditor.updateSelections();
 		mapEditor.getMap().repaint();
 	}
 

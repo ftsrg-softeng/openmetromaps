@@ -324,10 +324,16 @@ public class PlanRenderer implements ViewportListener
 
 			List<NetworkLine> lines = edge.lines;
 			segmentDrawer.drawSegment(
-				g, lines, edge,
-				lines.stream()
-					.map(l -> mapViewStatus.isLineSelected(this.lineNetwork.lines.stream().filter(nl -> nl.line == l.line).findFirst().get()))
-					.toList()
+					g, lines, edge,
+					lines.stream()
+							.map(l -> mapViewStatus.isLineSelected(this.lineNetwork.lines.stream().filter(nl -> nl.line == l.line).findAny().get()))
+							.toList(),
+					lines.stream()
+							.map(l -> mapViewStatus.isEdgeLineHighlighted(
+									this.lineNetwork.edges.stream().filter(e -> e.n1.station == edge.n1.station
+											&& e.n2.station == edge.n2.station).findAny().get(),
+									this.lineNetwork.lines.stream().filter(nl -> nl.line == l.line).findAny().get()))
+							.toList()
 			);
 		}
 		segmentDrawer.finishSegments();
