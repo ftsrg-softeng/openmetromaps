@@ -83,4 +83,8 @@ public class Line extends Entity
 		this.stops = stops;
 	}
 
+	@Override
+	public String toString() {
+		return name;
+	}
 }
