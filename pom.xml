@@ -68,6 +68,7 @@
         <module>subprojects/ui-selector</module>
         <module>subprojects/xml-dom-abstraction</module>
         <module>subprojects/xml-dom-abstraction-desktop</module>
+        <module>subprojects/test-maps-model-gtfs</module>
     </modules>
 
     <repositories>
