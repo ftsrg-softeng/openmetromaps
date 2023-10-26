@@ -17,6 +17,7 @@
 
 package org.openmetromaps.maps;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -92,6 +93,36 @@ public class StationUtil
 			new Coordinate(x, y);
 		}
 		return new Coordinate(x / n, y / n);
+	}
+
+	public static List<Stop> getNeighbouringStops(Stop stop) {
+		List<Stop> stops = new ArrayList<>();
+
+		Line line = stop.getLine();
+		int stopIndex = line.getStops().indexOf(stop);
+		if(stopIndex > 0) {
+			stops.add(line.getStops().get(stopIndex - 1));
+		}
+		else if(stopIndex == 0 && line.isCircular()) {
+			stops.add(line.getStops().get(line.getStops().size() - 1));
+		}
+		if(stopIndex < line.getStops().size() - 1) {
+			stops.add(line.getStops().get(stopIndex + 1));
+		}
+		else if(stopIndex == line.getStops().size() - 1 && line.isCircular()) {
+			stops.add(line.getStops().get(0));
+		}
+
+		return stops;
+	}
+
+	public static boolean isStopEndOfLine(Stop stop) {
+		if(stop.getLine().isCircular()) {
+			return false;
+		}
+
+		List<Stop> stops = stop.getLine().getStops();
+		return stops.get(0) == stop || stops.get(stops.size() - 1) == stop;
 	}
 
 }

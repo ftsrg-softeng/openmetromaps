@@ -60,4 +60,8 @@ public class Stop
 		this.line = line;
 	}
 
+	@Override
+	public String toString() {
+		return station.getName() + " @ " + line.getName();
+	}
 }
