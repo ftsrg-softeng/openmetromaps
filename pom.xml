@@ -68,13 +68,69 @@
         <module>subprojects/ui-selector</module>
         <module>subprojects/xml-dom-abstraction</module>
         <module>subprojects/xml-dom-abstraction-desktop</module>
+
+        <!-- Decompiled modules: de.topobyte -->
+        <module>repository/lightweight-geometry-convex-hull</module>
+        <module>repository/viewports-swing</module>
+        <module>repository/melon-casting</module>
+        <module>repository/jeography-viewers</module>
+        <module>repository/awt-utils</module>
+        <module>repository/commons-cli-helper</module>
+        <module>repository/webpaths-nio</module>
+        <module>repository/lightweight-geometry</module>
+        <module>repository/osm4j-core</module>
+        <module>repository/jama</module>
+        <module>repository/dynsax</module>
+        <module>repository/line-printer-core</module>
+        <module>repository/simple-formatting</module>
+        <module>repository/melon-enums</module>
+        <module>repository/melon-resources</module>
+        <module>repository/large-scale-file-io</module>
+        <module>repository/jsi</module>
+        <module>repository/compact-io</module>
+        <module>repository/integer-formatting</module>
+        <module>repository/osm4j-extra</module>
+        <module>repository/adt-multicollections</module>
+        <module>repository/collections-utils</module>
+        <module>repository/osm4j-xml</module>
+        <module>repository/lightweight-geometry-awt</module>
+        <module>repository/jsi-and-jts</module>
+        <module>repository/xml4jah-dom</module>
+        <module>repository/adt-misc</module>
+        <module>repository/jsi-rectangle-intersection-tester</module>
+        <module>repository/jeography-core</module>
+        <module>repository/osm4j-utils</module>
+        <module>repository/jts-medical-kit</module>
+        <module>repository/system-utils</module>
+        <module>repository/osm4j-geometry</module>
+        <module>repository/webpaths-core</module>
+        <module>repository/linear-algebra</module>
+        <module>repository/jts-utils</module>
+        <module>repository/osm4j-testing</module>
+        <module>repository/adt-geo</module>
+        <module>repository/jeography-tiles</module>
+        <module>repository/jgs</module>
+        <module>repository/line-printer-slf4j</module>
+        <module>repository/interactive-view</module>
+        <module>repository/melon-io</module>
+        <module>repository/viewports-core</module>
+        <module>repository/adt-graph</module>
+        <module>repository/geomath</module>
+        <module>repository/swing-utils</module>
+        <module>repository/osm4j-tbo</module>
+        <module>repository/osm4j-pbf</module>
+        <module>repository/xml4jah-core</module>
+        <module>repository/melon-strings</module>
+
+        <!-- Decompiled modules: org.openmetromaps.gtfs4j -->
+        <module>repository/gtfs4j-csv-reader</module>
+        <module>repository/gtfs4j-core</module>
+        <module>repository/gtfs4j-csv-writer</module>
+        <module>repository/gtfs4j-csv-util</module>
+        <module>repository/gtfs4j-csv-core</module>
     </modules>
 
     <repositories>
-        <repository>
-            <id>topobyte</id>
-            <url>https://mvn.topobyte.de</url>
-        </repository>
         <repository>
             <id>slimjars</id>
             <url>https://mvn.slimjars.com</url>
