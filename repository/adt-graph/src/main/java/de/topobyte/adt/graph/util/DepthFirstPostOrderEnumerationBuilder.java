@@ -14,7 +14,7 @@ public class DepthFirstPostOrderEnumerationBuilder<T> implements EnumerationBuil
    Set<T> available;
 
    public DepthFirstPostOrderEnumerationBuilder(Graph<T> graph) {
-      this(graph, new HashSetFactory<>());
+      this(graph, new HashSetFactory<T>());
    }
 
    public DepthFirstPostOrderEnumerationBuilder(Graph<T> graph, SetFactory<T> setFactory) {

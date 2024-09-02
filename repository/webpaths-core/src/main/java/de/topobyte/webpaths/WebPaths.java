@@ -26,7 +26,7 @@ public class WebPaths {
       List<String> components = new ArrayList<>();
       List<String> parts = SPLITTER.splitToList(spec);
       if (parts.isEmpty()) {
-         return new WebPath(0, new ArrayList<>(), false);
+         return new WebPath(0, new ArrayList<String>(), false);
       } else {
          boolean lastWasDir = false;
 

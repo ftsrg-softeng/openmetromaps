@@ -124,7 +124,7 @@ public class RegionBuilder extends AbstractGeometryBuilder {
    public RegionBuilderResult build(OsmWay way, OsmEntityProvider resolver) throws EntityNotFoundException {
       MultiSet<OsmWay> ways = new HashMultiSet();
       ways.add(way);
-      return this.build(ways, resolver, new HashSet<>());
+      return this.build(ways, resolver, new HashSet<OsmNode>());
    }
 
    public RegionBuilderResult build(MultiSet<OsmWay> ways, OsmEntityProvider resolver, Set<OsmNode> nodes) throws EntityNotFoundException {

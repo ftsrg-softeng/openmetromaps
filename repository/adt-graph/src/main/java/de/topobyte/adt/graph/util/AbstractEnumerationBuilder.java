@@ -16,7 +16,7 @@ abstract class AbstractEnumerationBuilder<T> implements EnumerationBuilder<T> {
    protected boolean invertOrderOfNewNeighbors = false;
 
    public AbstractEnumerationBuilder(Graph<T> graph) {
-      this(graph, new HashSetFactory<>());
+      this(graph, new HashSetFactory<T>());
    }
 
    public AbstractEnumerationBuilder(Graph<T> graph, SetFactory<T> setFactory) {

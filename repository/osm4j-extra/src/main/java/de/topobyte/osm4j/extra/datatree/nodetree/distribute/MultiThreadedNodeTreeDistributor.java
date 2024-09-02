@@ -52,7 +52,7 @@ public class MultiThreadedNodeTreeDistributor extends AbstractNodeTreeDistributo
       this.obuffers = new ArrayList<>();
 
       for (int i = 0; i < this.numOutputThreads; i++) {
-         this.obuffers.add(new ObjectBuffer<>(10000, 100));
+         this.obuffers.add(new ObjectBuffer<WriteRequest>(10000, 100));
       }
    }
 

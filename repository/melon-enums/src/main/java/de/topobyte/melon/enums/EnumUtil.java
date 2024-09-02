@@ -15,7 +15,7 @@ public class EnumUtil<T extends Enum<T>> {
    }
 
    public static <T extends Enum<T>> String buildNameList(Class<T> clazz, String separator) {
-      return buildNameList(clazz.getEnumConstants(), new DefaultEnumNamer<>(), separator);
+       return buildNameList(clazz.getEnumConstants(), new DefaultEnumNamer<T>(), separator);
    }
 
    public static <T extends Enum<T>> String buildNameList(Class<T> clazz, EnumNamer<T> namer, String separator) {
@@ -23,7 +23,7 @@ public class EnumUtil<T extends Enum<T>> {
    }
 
    public static <T extends Enum<T>> String buildNameList(T[] values) {
-      return buildNameList(values, new DefaultEnumNamer<>(), ", ");
+      return buildNameList(values, new DefaultEnumNamer<T>(), ", ");
    }
 
    public static <T extends Enum<T>> String buildNameList(T[] values, EnumNamer<T> namer) {
@@ -31,7 +31,7 @@ public class EnumUtil<T extends Enum<T>> {
    }
 
    public static <T extends Enum<T>> String buildNameList(T[] values, String separator) {
-      return buildNameList(values, new DefaultEnumNamer<>(), separator);
+      return buildNameList(values, new DefaultEnumNamer<T>(), separator);
    }
 
    public static <T extends Enum<T>> String buildNameList(T[] values, EnumNamer<T> namer, String separator) {
@@ -45,7 +45,7 @@ public class EnumUtil<T extends Enum<T>> {
    }
 
    public static <T extends Enum<T>> String buildNameList(Iterable<T> values) {
-      return buildNameList(values, new DefaultEnumNamer<>(), ", ");
+      return buildNameList(values, new DefaultEnumNamer<T>(), ", ");
    }
 
    public static <T extends Enum<T>> String buildNameList(Iterable<T> values, EnumNamer<T> namer) {
@@ -53,7 +53,7 @@ public class EnumUtil<T extends Enum<T>> {
    }
 
    public static <T extends Enum<T>> String buildNameList(Iterable<T> values, String separator) {
-      return buildNameList(values, new DefaultEnumNamer<>(), separator);
+      return buildNameList(values, new DefaultEnumNamer<T>(), separator);
    }
 
    public static <T extends Enum<T>> String buildNameList(Iterable<T> values, EnumNamer<T> namer, String separator) {

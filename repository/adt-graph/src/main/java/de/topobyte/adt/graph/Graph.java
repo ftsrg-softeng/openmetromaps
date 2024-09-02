@@ -34,7 +34,7 @@ public class Graph<T> {
    }
 
    private void setDefaultFactories() {
-      this.setFactories(new HashSetFactory<>(), new HashMapFactory<>());
+      this.setFactories(new HashSetFactory<T>(), new HashMapFactory<T, Set<T>>());
    }
 
    private void setFactories(SetFactory<T> setFactory, MapFactory<T, Set<T>> mapFactory) {

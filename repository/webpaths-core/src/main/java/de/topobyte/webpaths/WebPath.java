@@ -177,7 +177,7 @@ public class WebPath implements Iterable<String> {
             return new WebPath(rem, parts, this.isDir);
          } else {
             int rem = from - this.ups;
-            return rem == parts.size() ? new WebPath(0, new ArrayList<>(), false) : new WebPath(0, parts.subList(rem, parts.size()), this.isDir);
+            return rem == parts.size() ? new WebPath(0, new ArrayList<String>(), false) : new WebPath(0, parts.subList(rem, parts.size()), this.isDir);
          }
       }
    }
@@ -188,7 +188,7 @@ public class WebPath implements Iterable<String> {
       } else if (to > this.ups + this.components.size()) {
          throw new IllegalArgumentException();
       } else if (to <= this.ups) {
-         return new WebPath(to, new ArrayList<>(), true);
+         return new WebPath(to, new ArrayList<String>(), true);
       } else {
          List<String> parts = new ArrayList<>();
          parts.addAll(this.components);
