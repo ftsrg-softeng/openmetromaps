@@ -20,7 +20,6 @@ package org.openmetromaps.maps.editor.actions.edit;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.openmetromaps.maps.Points;
 import org.openmetromaps.maps.editor.MapEditor;
@@ -51,7 +50,7 @@ public class AlignHorizontallyAction extends MapEditorAction
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
-		Set<Node> nodes = mapEditor.getMapViewStatus().getSelectedNodes();
+		List<Node> nodes = mapEditor.getMapViewStatus().getSelectedNodes();
 
 		List<Point> locations = new ArrayList<>();
 		for (Node node : nodes) {

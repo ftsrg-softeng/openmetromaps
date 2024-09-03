@@ -20,7 +20,6 @@ package org.openmetromaps.maps.editor.actions.edit;
 import java.awt.event.ActionEvent;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import javax.swing.JOptionPane;
 
@@ -56,7 +55,7 @@ public class SelectNodesInBetweenAction extends MapEditorAction
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
-		Set<Node> nodes = mapEditor.getMapViewStatus().getSelectedNodes();
+		List<Node> nodes = mapEditor.getMapViewStatus().getSelectedNodes();
 
 		if (nodes.size() != 2) {
 			JOptionPane.showMessageDialog(mapEditor.getFrame(),

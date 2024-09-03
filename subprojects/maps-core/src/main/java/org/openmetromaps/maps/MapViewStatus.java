@@ -17,16 +17,16 @@
 
 package org.openmetromaps.maps;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.openmetromaps.maps.graph.Node;
 
 public class MapViewStatus
 {
 
-	private Set<Node> selectedNodes = new HashSet<>();
+	private List<Node> selectedNodes = new ArrayList<>();
 
 	public boolean isNodeSelected(Node node)
 	{
@@ -53,9 +53,9 @@ public class MapViewStatus
 		return selectedNodes.size();
 	}
 
-	public Set<Node> getSelectedNodes()
+	public List<Node> getSelectedNodes()
 	{
-		return Collections.unmodifiableSet(selectedNodes);
+		return Collections.unmodifiableList(selectedNodes);
 	}
 
 }
