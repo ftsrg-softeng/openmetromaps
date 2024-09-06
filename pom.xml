@@ -128,14 +128,11 @@
         <module>repository/gtfs4j-csv-writer</module>
         <module>repository/gtfs4j-csv-util</module>
         <module>repository/gtfs4j-csv-core</module>
-    </modules>
 
-    <repositories>
-        <repository>
-            <id>slimjars</id>
-            <url>https://mvn.slimjars.com</url>
-        </repository>
-    </repositories>
+        <!-- Trove4j from: https://github.com/slimjars/trove4j-plain -->
+        <module>repository/trove4j</module>
+
+    </modules>
 
     <dependencyManagement>
         <dependencies>
@@ -514,7 +511,7 @@
             </dependency>
             <dependency>
                 <groupId>com.slimjars.trove4j</groupId>
-                <artifactId>trove4j-int-hash-set</artifactId>
+                <artifactId>trove4j</artifactId>
                 <version>1.0.1</version>
             </dependency>
             <dependency>

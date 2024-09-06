@@ -5,14 +5,6 @@
   <groupId>de.topobyte</groupId>
   <artifactId>osm4j-pbf</artifactId>
   <version>0.1.0</version>
-
-  <repositories>
-    <repository>
-      <id>slimjars</id>
-      <url>https://mvn.slimjars.com</url>
-    </repository>
-  </repositories>
-
   <dependencies>
     <dependency>
       <groupId>de.topobyte</groupId>
@@ -22,9 +14,8 @@
     </dependency>
     <dependency>
       <groupId>com.slimjars.trove4j</groupId>
-      <artifactId>trove4j-object-int-hash-map</artifactId>
+      <artifactId>trove4j</artifactId>
       <version>1.0.1</version>
-      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.google.protobuf</groupId>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.slimjars.trove4j</groupId>
+    <artifactId>trove4j</artifactId>
+    <version>1.0.1</version>
+    <name>Trove4j Slim</name>
+    <description>High performance (primitive) collections</description>
+    <url>https://www.slimjars.com/projects/trove4j</url>
+    <organization>
+        <name>Slimjars</name>
+        <url>https://www.slimjars.com</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License 3.0</name>
+            <url>https://www.gnu.org/licenses/lgpl-3.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+</project>

@@ -59,7 +59,8 @@
         </dependency>
         <dependency>
             <groupId>com.slimjars.trove4j</groupId>
-            <artifactId>trove4j-int-hash-set</artifactId>
+            <artifactId>trove4j</artifactId>
+            <version>1.0.1</version>
         </dependency>
     </dependencies>
 </project>
