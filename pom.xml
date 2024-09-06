@@ -132,6 +132,10 @@
         <!-- Trove4j from: https://github.com/slimjars/trove4j-plain -->
         <module>repository/trove4j</module>
 
+        <!-- DockingFrames from: https://github.com/Benoker/DockingFrames -->
+        <module>repository/docking-frames-core</module>
+        <module>repository/docking-frames-common</module>
+
     </modules>
 
     <dependencyManagement>
@@ -497,12 +501,12 @@
             <dependency>
                 <groupId>org.dockingframes</groupId>
                 <artifactId>docking-frames-core</artifactId>
-                <version>1.1.1</version>
+                <version>1.1.2</version>
             </dependency>
             <dependency>
                 <groupId>org.dockingframes</groupId>
                 <artifactId>docking-frames-common</artifactId>
-                <version>1.1.1</version>
+                <version>1.1.2</version>
             </dependency>
             <dependency>
                 <groupId>dom4j</groupId>
