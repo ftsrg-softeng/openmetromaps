@@ -68,6 +68,10 @@
         <module>subprojects/ui-selector</module>
         <module>subprojects/xml-dom-abstraction</module>
         <module>subprojects/xml-dom-abstraction-desktop</module>
+
+        <!-- DockingFrames from: https://github.com/Benoker/DockingFrames -->
+        <module>repository/docking-frames-core</module>
+        <module>repository/docking-frames-common</module>
     </modules>
 
     <repositories>
@@ -444,12 +448,12 @@
             <dependency>
                 <groupId>org.dockingframes</groupId>
                 <artifactId>docking-frames-core</artifactId>
-                <version>1.1.1</version>
+                <version>1.1.2</version>
             </dependency>
             <dependency>
                 <groupId>org.dockingframes</groupId>
                 <artifactId>docking-frames-common</artifactId>
-                <version>1.1.1</version>
+                <version>1.1.2</version>
             </dependency>
             <dependency>
                 <groupId>dom4j</groupId>
