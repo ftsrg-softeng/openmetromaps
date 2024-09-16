@@ -102,7 +102,7 @@ public class AutoLayoutBetweenAction  extends MapEditorAction
         //  (start-anchor)      diffX
         double angle = Math.toDegrees(Math.atan(diffY / diffX));
 
-        // If the angle is less than 22.5, the line should be horihontal
+        // If the angle is less than 22.5, the line should be horizontal
         if(Math.abs(angle) <= 22.5) {
             endNode.location = new Point(endPoint.getX(), startPoint.getY());
         }
