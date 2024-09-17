@@ -60,6 +60,7 @@ import org.openmetromaps.maps.editor.actions.algorithms.HeavyComputationAction;
 import org.openmetromaps.maps.editor.actions.algorithms.StraightenAxisParallelLinesAction;
 import org.openmetromaps.maps.editor.actions.edit.AlignHorizontallyAction;
 import org.openmetromaps.maps.editor.actions.edit.AlignVerticallyAction;
+import org.openmetromaps.maps.editor.actions.edit.AutoLayoutBetweenAction;
 import org.openmetromaps.maps.editor.actions.edit.DistributeEvenlyAction;
 import org.openmetromaps.maps.editor.actions.edit.DocumentPropertiesAction;
 import org.openmetromaps.maps.editor.actions.edit.SelectAllAction;
@@ -507,6 +508,8 @@ public class MapEditor
 				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_V);
 		JMenus.addItem(menuEdit, new DistributeEvenlyAction(this),
 				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_D);
+		JMenus.addItem(menuEdit, new AutoLayoutBetweenAction(this),
+				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_G);
 
 		JMenu menuAlgorithms = new JMenu("Algorithms");
 		menuEdit.add(menuAlgorithms);
