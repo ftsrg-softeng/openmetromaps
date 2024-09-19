@@ -8,4 +8,4 @@ if [ ! -e "${files[0]}" ]; then
     exit 1
 fi
 
-exec java -Dfile.encoding=UTF-8 -jar "${files[0]}" "$@"
+exec java -Dfile.encoding=UTF-8 -Xmx3g -jar "${files[0]}" "$@"
