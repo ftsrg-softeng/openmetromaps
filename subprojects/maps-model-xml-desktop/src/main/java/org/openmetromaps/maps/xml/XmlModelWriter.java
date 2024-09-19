@@ -19,10 +19,9 @@ package org.openmetromaps.maps.xml;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -30,7 +29,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.openmetromaps.maps.Edges;
 import org.openmetromaps.maps.Interval;
-import org.openmetromaps.maps.MapModelUtil;
 import org.openmetromaps.maps.MapView;
 import org.openmetromaps.maps.ViewConfig;
 import org.openmetromaps.maps.graph.LineNetwork;
@@ -62,8 +60,11 @@ public class XmlModelWriter
 
 		// Add data to document
 
-		Element eMain = doc.createElement("omm-file");
-		eMain.setAttribute("version", "1.0.0");
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yy.M.d");
+        String date = LocalDate.now().format(fmt);
+
+        Element eMain = doc.createElement("omm-file");
+        eMain.setAttribute("version", date);
 
 		Element eStations = doc.createElement("stations");
 		Element eLines = doc.createElement("lines");
@@ -71,9 +72,6 @@ public class XmlModelWriter
 		doc.appendChild(eMain);
 		eMain.appendChild(eStations);
 		eMain.appendChild(eLines);
-
-		MapModelUtil.sortStationsByName(data.stations);
-		MapModelUtil.sortLinesByName(data.lines);
 
 		DoubleFormatter df = new DoubleFormatter();
 		df.setFractionDigits(6);

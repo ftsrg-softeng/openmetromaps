@@ -22,7 +22,7 @@ import java.util.*;
 import org.openmetromaps.gtfs.DraftLine;
 import org.openmetromaps.gtfs.DraftModel;
 import org.openmetromaps.gtfs.DraftStation;
-import org.openmetromaps.maps.MapModelUtil;
+import org.openmetromaps.maps.ThreadSafeDistributedMap;
 import org.openmetromaps.maps.model.Coordinate;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;
@@ -46,8 +46,8 @@ public class DraftModelConverter
 	{
 		List<DraftLine> draftLines = draftModel.getLines();
 
-		Map<DraftLine, Line> draftToLine = new HashMap<>();
-		Map<String, Station> idToStation = new HashMap<>();
+		Map<DraftLine, Line> draftToLine = new ThreadSafeDistributedMap<>();
+		Map<String, Station> idToStation = new ThreadSafeDistributedMap<>();
 
 		int id = 0;
 		for (DraftLine draftLine : draftLines) {
@@ -64,8 +64,9 @@ public class DraftModelConverter
 			draftToLine.put(draftLine, line);
 		}
 
-		for (DraftLine draftLine : draftLines) {
-			Line line = draftToLine.get(draftLine);
+        for (Map.Entry<DraftLine, Line> entry : draftToLine.entrySet()) {
+            DraftLine draftLine = entry.getKey();
+			Line line = entry.getValue();
 			List<Stop> stops = new ArrayList<>();
 			line.setStops(stops);
 
@@ -89,8 +90,6 @@ public class DraftModelConverter
 				station.getStops().add(stop);
 			}
 		}
-
-		MapModelUtil.sortStationsByName(stationsList);
 
 		for (int i = 0; i < linesList.size(); i++) {
 			Line line = linesList.get(i);
