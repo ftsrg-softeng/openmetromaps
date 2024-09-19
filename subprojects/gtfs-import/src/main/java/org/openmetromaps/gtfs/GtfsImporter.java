@@ -54,6 +54,7 @@ public class GtfsImporter
 	private Path path;
 	private NameChanger nameChanger;
 	private boolean removeBoms;
+    private boolean ignoreMissingCalendar;
 
 	private GtfsZip zip;
 
@@ -67,11 +68,12 @@ public class GtfsImporter
 
 	private DraftModel model = new DraftModel();
 
-	public GtfsImporter(Path path, NameChanger nameChanger, boolean removeBoms)
+	public GtfsImporter(Path path, NameChanger nameChanger, boolean removeBoms, boolean ignoreMissingCalendar)
 	{
 		this.path = path;
 		this.nameChanger = nameChanger;
 		this.removeBoms = removeBoms;
+        this.ignoreMissingCalendar = ignoreMissingCalendar;
 	}
 
 	public DraftModel getModel()
@@ -103,6 +105,8 @@ public class GtfsImporter
 		readTrips();
 
 		readStopTimes();
+
+        readCalendar();
 
 		buildTripStopLists();
 
@@ -204,6 +208,30 @@ public class GtfsImporter
 			stopIdToStop.put(stop.getId(), stop);
 		}
 	}
+
+    private void readCalendar() throws IOException {
+        try
+        {
+            readCalendarInternal();
+        }
+        catch (Exception e)
+        {
+            if (!ignoreMissingCalendar)
+            {
+                System.err.println("Error: calendar.txt could not be read.");
+                throw new IOException(e);
+            }
+            else
+            {
+                System.err.println("Warning: calendar.txt could not be read, continuing anyway.");
+            }
+        }
+    }
+
+    private void readCalendarInternal() throws IOException {
+        // Not used at the moment
+        zip.readCalendar();
+    }
 
 	private void analyzeRoutes()
 	{
