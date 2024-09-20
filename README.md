@@ -30,14 +30,14 @@ This repository is a fork of the original
 ## Requirements
 
 In order to run the software from the development tree you need a Java
-Development Kit (JDK), Version 17 or later. The project uses Maven as a
+Development Kit (JDK), Version 21 or later. The project uses Maven as a
 build tool, but you should use the included Maven Wrapper for building
 the project.
 
 On Debian-based systems such as Ubuntu or Mint, you can install the JDK
 like this:
 
-    sudo apt-get install openjdk-17-jdk
+    sudo apt-get install openjdk-21-jdk
 
 ## Command line interface (CLI)
 
