@@ -18,6 +18,7 @@
 package org.openmetromaps.maps.model;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Station extends Entity
 {
@@ -64,4 +65,8 @@ public class Station extends Entity
 		this.stops = stops;
 	}
 
+	@Override
+	public String toString() {
+		return name + " @ " + stops.stream().map(s -> s.getLine().getName()).collect(Collectors.joining(", "));
+	}
 }
