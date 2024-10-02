@@ -16,6 +16,10 @@
     <name>openmetromaps-osm</name>
     <description>OpenMetroMaps OSM processing</description>
 
+    <properties>
+        <sonar.skip>true</sonar.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>de.topobyte</groupId>

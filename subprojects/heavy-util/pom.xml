@@ -16,6 +16,10 @@
     <name>openmetromaps-heavy-util</name>
     <description>OpenMetroMaps heavyweight utilities</description>
 
+    <properties>
+        <sonar.skip>true</sonar.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>

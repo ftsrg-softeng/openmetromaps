@@ -16,6 +16,10 @@
     <name>openmetromaps-gtfs-model-converter</name>
     <description>OpenMetroMaps conversion from GTFS draft model to map model</description>
 
+    <properties>
+        <sonar.skip>true</sonar.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>

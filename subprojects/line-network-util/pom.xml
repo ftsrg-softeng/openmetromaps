@@ -16,6 +16,10 @@
     <name>openmetromaps-line-network-util</name>
     <description>OpenMetroMaps LineNetwork utilities</description>
 
+    <properties>
+        <sonar.skip>true</sonar.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>

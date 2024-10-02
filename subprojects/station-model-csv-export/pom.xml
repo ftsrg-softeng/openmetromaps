@@ -16,6 +16,10 @@
     <name>openmetromaps-model-csv-export</name>
     <description>OpenMetroMaps station model CSV export</description>
 
+    <properties>
+        <sonar.skip>true</sonar.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>

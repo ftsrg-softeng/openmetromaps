@@ -15,4 +15,8 @@
     <artifactId>openmetromaps-xml-dom-abstraction</artifactId>
     <name>openmetromaps-xml-dom-abstraction</name>
     <description>OpenMetroMaps XML DOM abstraction core</description>
+
+    <properties>
+        <sonar.skip>true</sonar.skip>
+    </properties>
 </project>

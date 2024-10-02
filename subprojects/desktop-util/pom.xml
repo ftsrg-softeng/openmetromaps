@@ -16,6 +16,10 @@
     <name>openmetromaps-desktop-util</name>
     <description>OpenMetroMaps desktop utilities</description>
 
+    <properties>
+        <sonar.skip>true</sonar.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>

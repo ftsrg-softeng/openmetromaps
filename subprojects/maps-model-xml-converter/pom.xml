@@ -16,6 +16,10 @@
     <name>openmetromaps-maps-model-xml-converter</name>
     <description>OpenMetroMaps conversion from XML model to map model</description>
 
+    <properties>
+        <sonar.skip>true</sonar.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>

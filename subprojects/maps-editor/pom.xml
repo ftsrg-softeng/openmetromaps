@@ -15,6 +15,10 @@
     <artifactId>openmetromaps-maps-editor</artifactId>
     <name>openmetromaps-maps-editor</name>
 
+    <properties>
+        <sonar.skip>true</sonar.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>

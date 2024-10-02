@@ -15,6 +15,10 @@
     <artifactId>openmetromaps-maps-viewer</artifactId>
     <name>openmetromaps-maps-viewer</name>
 
+    <properties>
+        <sonar.skip>true</sonar.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>

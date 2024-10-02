@@ -16,6 +16,10 @@
     <name>openmetromaps-markdown-view</name>
     <description>OpenMetroMaps markdown view generation utilities</description>
 
+    <properties>
+        <sonar.skip>true</sonar.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>

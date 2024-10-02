@@ -16,6 +16,10 @@
     <name>openmetromaps-maps-model</name>
     <description>OpenMetroMaps map model core</description>
 
+    <properties>
+        <sonar.skip>true</sonar.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>de.topobyte</groupId>

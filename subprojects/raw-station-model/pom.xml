@@ -16,6 +16,10 @@
     <name>openmetromaps-raw-station-model</name>
     <description>OpenMetroMaps raw station model core</description>
 
+    <properties>
+        <sonar.skip>true</sonar.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>

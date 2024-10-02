@@ -16,6 +16,10 @@
     <name>openmetromaps-lightgeom</name>
     <description>OpenMetroMaps Lightweight Geometry extensions</description>
 
+    <properties>
+        <sonar.skip>true</sonar.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>de.topobyte</groupId>

@@ -17,6 +17,7 @@
 
     <properties>
         <main.class>org.openmetromaps.cli.OpenMetroMapsCli</main.class>
+        <sonar.skip>true</sonar.skip>
     </properties>
 
     <dependencies>

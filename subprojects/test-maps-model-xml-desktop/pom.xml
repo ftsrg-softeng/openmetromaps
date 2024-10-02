@@ -15,6 +15,10 @@
     <artifactId>openmetromaps-test-maps-model-xml-desktop</artifactId>
     <name>openmetromaps-test-maps-model-xml-desktop</name>
 
+    <properties>
+        <sonar.skip>true</sonar.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>

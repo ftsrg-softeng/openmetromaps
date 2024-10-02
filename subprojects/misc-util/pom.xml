@@ -16,6 +16,10 @@
     <name>openmetromaps-misc-util</name>
     <description>OpenMetroMaps miscellaneous utilities</description>
 
+    <properties>
+        <sonar.skip>true</sonar.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>

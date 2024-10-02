@@ -16,6 +16,10 @@
     <name>openmetromaps-maps-awt</name>
     <description>OpenMetroMaps maps for AWT</description>
 
+    <properties>
+        <sonar.skip>true</sonar.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>

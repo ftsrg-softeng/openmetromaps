@@ -16,6 +16,10 @@
     <name>openmetromaps-osm-model</name>
     <description>OpenMetroMaps OSM draft model</description>
 
+    <properties>
+        <sonar.skip>true</sonar.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>

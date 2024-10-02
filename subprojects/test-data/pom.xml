@@ -15,6 +15,10 @@
     <artifactId>openmetromaps-test-data</artifactId>
     <name>openmetromaps-test-data</name>
 
+    <properties>
+        <sonar.skip>true</sonar.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>

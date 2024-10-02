@@ -16,6 +16,10 @@
     <name>openmetromaps-swing-misc</name>
     <description>OpenMetroMaps miscellaneous Swing utilities</description>
 
+    <properties>
+        <sonar.skip>true</sonar.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>de.topobyte</groupId>

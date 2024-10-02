@@ -15,6 +15,10 @@
     <artifactId>openmetromaps-mobidig</artifactId>
     <name>openmetromaps-mobidig</name>
 
+    <properties>
+        <sonar.skip>true</sonar.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>

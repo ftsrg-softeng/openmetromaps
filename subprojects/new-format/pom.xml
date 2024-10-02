@@ -15,6 +15,10 @@
     <artifactId>openmetromaps-new-format</artifactId>
     <name>openmetromaps-new-format</name>
 
+    <properties>
+        <sonar.skip>true</sonar.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>

@@ -16,6 +16,10 @@
     <name>openmetromaps-maps-model-xml</name>
     <description>OpenMetroMaps map model XML</description>
 
+    <properties>
+        <sonar.skip>true</sonar.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>hu.bme.mit.ftsrg.openmetromaps</groupId>
